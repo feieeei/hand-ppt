@@ -30,13 +30,12 @@ HAND_CONNECTIONS = [
     (0, 17)                                # 手掌根部连接
 ]
 
-# ================= 2. 防误触状态变量 =================
+#防误触状态变量
 COOLDOWN_TIME = 1.5      
 SWIPE_THRESHOLD = 50     
 last_trigger_time = 0    
-start_x = None           
+start_x = None        
 
-# ================= 3. 主程序循环 =================
 cap = cv2.VideoCapture(0)
 print("请在画面上半部分，张开手掌左右滑动进行翻页。按 'q' 退出。")
 
@@ -52,7 +51,7 @@ while cap.isOpened():
     # 将图像转换为新版 API 需要的格式
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=img_rgb)
     
-    # 核心：使用新版 detect 方法提取骨骼数据
+    # 使用detect方法提取骨骼数据
     detection_result = landmarker.detect(mp_image)
 
     # 绘制触发区
@@ -78,7 +77,7 @@ while cap.isOpened():
                 pt2 = (lm_list[connection[1]][1], lm_list[connection[1]][2])
                 cv2.line(img, pt1, pt2, (0, 255, 0), 2)
 
-            # --- 下面是原汁原味的翻页逻辑 ---
+            #翻页逻辑
             center_x, center_y = lm_list[9][1], lm_list[9][2]
 
             if center_y < active_zone_y:
