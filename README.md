@@ -15,6 +15,3 @@
     ```bash
     python main.py
     ```
-
-### 📸 演示
-敬请期待
